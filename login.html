@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Casino Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="login-container">
+    <h1>Login to Casino</h1>
+    <form action="/login" method="POST">
+      <label for="username">Username</label><br/>
+      <input type="text" id="username" name="username" required /><br/>
+
+      <label for="password">Password</label><br/>
+      <input type="password" id="password" name="password" required /><br/>
+
+      <label>
+        <input type="checkbox" name="remember" value="1" />
+        Remember Me
+      </label><br/>
+
+      <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="/register">Register here</a></p>
+  </div>
+</body>
+</html>

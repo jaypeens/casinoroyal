@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Casino Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: radial-gradient(circle at center, #0b0b0b, #1a1a1a);
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0;
+    }
+    nav {
+      background-color: #111;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: flex-end;
+      box-shadow: 0 2px 10px rgba(255, 215, 0, 0.2);
+      position: relative;
+    }
+    /* Menu button */
+    .menu-btn {
+      background: transparent;
+      border: 2px solid #ffd700;
+      color: #ffd700;
+      font-weight: 600;
+      font-size: 1.1em;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      user-select: none;
+    }
+    .menu-btn:hover {
+      background-color: #ffd700;
+      color: #111;
+    }
+    /* Dropdown menu */
+    .dropdown {
+      position: absolute;
+      top: 60px;
+      right: 30px;
+      background-color: #222;
+      border: 1px solid #ffd700;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.5);
+      width: 180px;
+      display: none;
+      flex-direction: column;
+      z-index: 1000;
+    }
+    .dropdown.show {
+      display: flex;
+    }
+    .dropdown a, .dropdown button {
+      color: #ffd700;
+      padding: 12px 20px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1em;
+      transition: background-color 0.25s ease;
+    }
+    .dropdown a:hover, .dropdown button:hover {
+      background-color: #444;
+      color: #fff200;
+    }
+    main {
+      max-width: 960px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #ffd700;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <button id="menuBtn" class="menu-btn" aria-haspopup="true" aria-expanded="false">Menu ▼</button>
+    <div id="dropdownMenu" class="dropdown" role="menu" aria-label="User menu">
+      <a href="/profile" role="menuitem">Profile</a>
+      <button id="logoutBtn" role="menuitem">Logout</button>
+    </div>
+  </nav>
+  <main>
+    <h1>Welcome to the Casino Dashboard</h1>
+    <p>Use the menu above to access your profile or logout.</p>
+  </main>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const dropdown = document.getElementById('dropdownMenu');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Toggle dropdown
+    menuBtn.addEventListener('click', () => {
+      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', !isExpanded);
+      dropdown.classList.toggle('show');
+    });
+
+    // Close dropdown if clicking outside
+    window.addEventListener('click', (e) => {
+      if (!menuBtn.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.remove('show');
+        menuBtn.setAttribute('aria-expanded', false);
+      }
+    });
+
+    // Logout button sends user to /logout
+    logoutBtn.addEventListener('click', () => {
+      window.location.href = '/logout';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>User Profile</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: #121212;
+      color: #eee;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #1f1f1f 0%, #3b0a45 100%);
+      box-shadow: 0 0 15px #6a1b9a;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #f0c674;
+      text-shadow: 1px 1px 3px #6a1b9a;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background: #f0c674;
+      border: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #3b0a45;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #dda520;
+    }
+    .info {
+      background: #3b0a45;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      box-shadow: inset 0 0 10px #6a1b9a;
+    }
+    a {
+      display: block;
+      margin-top: 30px;
+      text-align: center;
+      color: #f0c674;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Your Profile</h1>
+
+  <div class="info">
+    <p><strong>Username:</strong> <span id="username">Loading...</span></p>
+  </div>
+
+  <form id="passwordChangeForm" method="POST" action="/change-password">
+    <label for="currentPassword">Current Password</label>
+    <input type="password" id="currentPassword" name="currentPassword" required />
+
+    <label for="newPassword">New Password</label>
+    <input type="password" id="newPassword" name="newPassword" required minlength="6" />
+
+    <button type="submit">Change Password</button>
+  </form>
+
+  <a href="/dashboard">Back to Dashboard</a>
+
+  <script>
+    // Fetch username from session stored in server
+    fetch('/api/user-info')
+      .then(res => res.json())
+      .then(data => {
+        if (data.username) {
+          document.getElementById('username').textContent = data.username;
+        } else {
+          document.getElementById('username').textContent = 'Unknown';
+        }
+      })
+      .catch(() => {
+        document.getElementById('username').textContent = 'Error loading username';
+      });
+  </script>
+</body>
+</html>
